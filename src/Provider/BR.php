@@ -13,7 +13,7 @@ use DateTimeImmutable;
  * @see http://www.planalto.gov.br/ccivil_03/leis/l6802.htm
  * @see https://pt.wikipedia.org/wiki/Feriados_no_Brasil
  */
-class BR extends AbstractProvider
+class BR extends AbstractEaster
 {
     const STATE_AC = 'Acre';
     const STATE_AL = 'Alagoas';
@@ -49,7 +49,8 @@ class BR extends AbstractProvider
     public function getHolidaysByYear($year)
     {
         // Easter
-        $easter = DateTimeImmutable::createFromFormat('U', easter_date($year));
+        $easterDates = $this->getEasterDates($year);
+        $easter = DateTimeImmutable::createFromMutable($easterDates['easterSunday']);
 
         $holidays = array(
             // National Fixed
